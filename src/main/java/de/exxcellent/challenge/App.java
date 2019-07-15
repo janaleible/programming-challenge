@@ -1,5 +1,7 @@
 package de.exxcellent.challenge;
 
+import de.exxcellent.challenge.analysis.MinimumDifferenceTask;
+import de.exxcellent.challenge.analysis.Task;
 import de.exxcellent.challenge.data.CSVImporter;
 import de.exxcellent.challenge.data.Importer;
 import tech.tablesaw.api.Table;
@@ -32,7 +34,9 @@ public final class App {
             return;
         }
 
-        String dayWithSmallestTempSpread = "Someday";     // Your day analysis function call …
+        Task<String> minDifference = new MinimumDifferenceTask("MxT", "MnT", "Day");
+
+        String dayWithSmallestTempSpread = minDifference.execute(weatherData);
         System.out.printf("Day with smallest temperature spread : %s%n", dayWithSmallestTempSpread);
 
         String teamWithSmallestGoalSpread = "A good team"; // Your goal analysis function call …
