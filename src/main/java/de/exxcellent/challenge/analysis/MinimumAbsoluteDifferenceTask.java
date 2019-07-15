@@ -8,13 +8,13 @@ import java.util.List;
 
 import static tech.tablesaw.aggregate.AggregateFunctions.min;
 
-public class MinimumDifferenceTask implements Task<String> {
+public class MinimumAbsoluteDifferenceTask implements Task<String> {
 
     private String minuendCol;
     private String subtrahendCol;
     private String returnCol;
 
-    public MinimumDifferenceTask(String minuendCol, String subtrahendCol, String returnCol) {
+    public MinimumAbsoluteDifferenceTask(String minuendCol, String subtrahendCol, String returnCol) {
         this.minuendCol = minuendCol;
         this.subtrahendCol = subtrahendCol;
         this.returnCol = returnCol;
@@ -23,7 +23,7 @@ public class MinimumDifferenceTask implements Task<String> {
     @Override
     public String execute(Table table) {
 
-        NumberColumn difference = table.numberColumn(this.minuendCol).subtract(table.numberColumn(this.subtrahendCol));
+        NumberColumn difference = table.intColumn(this.minuendCol).subtract(table.intColumn(this.subtrahendCol)).abs();
         int minDiff = table.summarize(difference, min).apply().nCol(0).get(0).intValue();
 
         StringColumn results = table.column(this.returnCol).where(difference.isEqualTo(minDiff)).asStringColumn();
