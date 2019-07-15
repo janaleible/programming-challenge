@@ -1,5 +1,11 @@
 package de.exxcellent.challenge;
 
+import de.exxcellent.challenge.data.CSVImporter;
+import de.exxcellent.challenge.data.Importer;
+import tech.tablesaw.api.Table;
+
+import java.io.IOException;
+
 /**
  * The entry class for your solution. This class is only aimed as starting point and not intended as baseline for your software
  * design. Read: create your own classes and packages as appropriate.
@@ -14,7 +20,17 @@ public final class App {
      */
     public static void main(String... args) {
 
-        // Your preparation code …
+        String filename = args[0];
+
+        Importer importer = new CSVImporter(filename);
+        Table weatherData = null;
+
+        try {
+            weatherData = importer.get();
+        } catch (IOException e) {
+            System.out.println("Invalid filename supplied: " + filename);
+            return;
+        }
 
         String dayWithSmallestTempSpread = "Someday";     // Your day analysis function call …
         System.out.printf("Day with smallest temperature spread : %s%n", dayWithSmallestTempSpread);
