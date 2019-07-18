@@ -4,5 +4,5 @@ import tech.tablesaw.api.Table;
 
 public interface Task<T> {
 
-    public T execute(Table table);
+    public T execute(Table table) throws ColumnNotFoundException;
 }

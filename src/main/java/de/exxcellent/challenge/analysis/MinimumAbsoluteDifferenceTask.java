@@ -21,7 +21,11 @@ public class MinimumAbsoluteDifferenceTask implements Task<String> {
     }
 
     @Override
-    public String execute(Table table) {
+    public String execute(Table table) throws ColumnNotFoundException {
+
+         if (!table.columnNames().contains(this.minuendCol)) throw new ColumnNotFoundException(this.minuendCol);
+         if (!table.columnNames().contains(this.subtrahendCol)) throw new ColumnNotFoundException(this.subtrahendCol);
+         if (!table.columnNames().contains(this.returnCol)) throw new ColumnNotFoundException(this.returnCol);
 
         NumberColumn difference = table.intColumn(this.minuendCol).subtract(table.intColumn(this.subtrahendCol)).abs();
         int minDiff = table.summarize(difference, min).apply().nCol(0).get(0).intValue();
