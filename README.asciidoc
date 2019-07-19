@@ -1,15 +1,22 @@
 = eXXcellent programming challenge
 
-This repository provides the project scaffold for a simple
-programming challenge. Though the challenge is very simple
-and a rather synthetic use-case, your results are a helpful
-starting point to discuss your programming flavor, skills
-and methodology.
+This repository provides my solution to the eXXcellent programming challenge.
 
-**BEFORE STARTING:** Please take the time and read this 
-document completely and carefully! It describes important 
-parts of the challenge.
+The `data` package provides an `Importer` interfaces, implemented as `CSVImporter`.
+The importer returns a https://jtablesaw.github.io/tablesaw/[tablesaw] `Table` object as internal representation of the provided data file.
 
+The `analysis` package provides a generic `Task` interface, implemented as `MinimumAbsoluteDifferenceTask` (which finds the row of data with the minimum absolute difference between two specified columns and returns that row's identifier).
+Further analysis tasks can be added easily implementing the same interface.
+
+Build using `mvn verify` and run the main app on the weather data file as
+```
+mvn exec:java -Dexec.args="src/main/resources/de/exxcellent/challenge/weather.csv MxT MnT Day"
+```
+or
+```
+mvn exec:java -Dexec.args="'src/main/resources/de/exxcellent/challenge/football.csv' 'Goals' 'Goals Allowed' 'Team'"
+```
+on the football data.
 
 == Goal
 
